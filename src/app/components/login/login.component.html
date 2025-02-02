@@ -1,0 +1,35 @@
+<div class="login-container">
+    <h1>Login</h1>
+    <form (ngSubmit)="login()">
+      <div>
+        <label for="username">Username:</label>
+        <input
+          id="username"
+          type="text"
+          [(ngModel)]="credentials.username"
+          name="username"
+          required
+        />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="credentials.password"
+          name="password"
+          required
+        />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  
+    <!-- Show the token or error -->
+    <div *ngIf="token">
+      <p>Token: {{ token }}</p>
+    </div>
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+    </div>
+  </div>
+  

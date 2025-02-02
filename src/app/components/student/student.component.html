@@ -1,0 +1,142 @@
+<div class="search-bar">
+  <!-- Radio Buttons for Toggle -->
+  <div class="toggle-container">
+    <label>
+      <input
+        type="radio"
+        name="searchType"
+        value="name"
+        [(ngModel)]="searchType"
+        (change)="clearSearch()"
+        checked
+      />
+      Search by Name
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="searchType"
+        value="facultyNumber"
+        [(ngModel)]="searchType"
+        (change)="clearSearch()"
+      />
+      Search by Faculty Number
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="searchType"
+        value="dates"
+        [(ngModel)]="searchType"
+        (change)="clearSearch()"
+      />
+      Search by Date Range
+    </label>
+  </div>
+
+  <!-- Conditional Inputs Based on Selected Search Type -->
+  <div *ngIf="searchType === 'name' || searchType === 'facultyNumber'">
+    <input
+      type="text"
+      [placeholder]="
+        searchType === 'name' ? 'Search by Name' : 'Search by Faculty Number'
+      "
+      [(ngModel)]="searchQuery"
+      (input)="searchStudents()"
+    />
+  </div>
+
+  <div *ngIf="searchType === 'dates'" class="date-range-picker">
+    <label for="startDate">Start Date:</label>
+    <input
+      id="startDate"
+      type="date"
+      [(ngModel)]="startDate"
+      (change)="searchStudents()"
+    />
+
+    <label for="endDate">End Date:</label>
+    <input
+      id="endDate"
+      type="date"
+      [(ngModel)]="endDate"
+      (change)="searchStudents()"
+    />
+  </div>
+
+</div>
+
+<h1>Student Management</h1>
+
+<div *ngIf="isLoading" class="loading-spinner">Loading...</div>
+
+<div *ngIf="!isLoading && students.length === 0 && !errorMessage" class="center-message">
+  <p>No students to display. Use the search bar to find students.</p>
+</div>
+
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+<div class="student-management-container">
+  <div class="student-list">
+    <!-- Loop through students -->
+    <div
+      *ngFor="let student of students"
+      (click)="toggleSelection(student)"
+      [class.selected]="selectedStudent?.id === student.id"
+      class="student-item"
+    >
+      <p>{{ student.name }}</p>
+      <p>{{ student.facultyNumber }}</p>
+
+      <!-- Dropdown menu directly below the selected item -->
+      <div *ngIf="selectedStudent?.id === student.id" class="dropdown">
+        <h2>Student Actions</h2>
+
+        <!-- Show editing and deleting only for admins -->
+        <div *ngIf="authService.hasRole('admin')">
+          <form (submit)="updateStudent(); $event.preventDefault()">
+            <label for="name">Name:</label>
+            <input
+              id="name"
+              [(ngModel)]="selectedStudent.name"
+              name="name"
+              required
+            />
+
+            <label for="facultyNumber">Faculty Number:</label>
+            <input
+              id="facultyNumber"
+              [(ngModel)]="selectedStudent.facultyNumber"
+              name="facultyNumber"
+              required
+            />
+
+            <div class="button-group">
+              <button type="submit">Save</button>
+              <button type="button" (click)="deleteStudent()">Delete</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Assignment-related buttons visible to both admin and teacher -->
+        <div class="assignment-buttons">
+          <!-- Show "Create Assignment" button if diplomaAssignmentId is null -->
+          <button
+            *ngIf="selectedStudent.diplomaAssignmentId === null"
+            (click)="redirectToAssignmentCreation(selectedStudent.id)"
+          >
+            Create Assignment
+          </button>
+
+          <!-- Show "View Assignment" button if diplomaAssignmentId is not null -->
+          <button
+            *ngIf="selectedStudent.diplomaAssignmentId !== null"
+            (click)="redirectToAssignmentDetails(selectedStudent.diplomaAssignmentId)"
+          >
+            View Assignment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

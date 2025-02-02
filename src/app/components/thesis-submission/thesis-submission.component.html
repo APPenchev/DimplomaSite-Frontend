@@ -1,0 +1,30 @@
+<div class="thesis-submission-container">
+    <h1>Submit Your Thesis</h1>
+    <form (submit)="submitThesis(); $event.preventDefault()">
+      <div class="form-group">
+        <label for="title">Thesis Title:</label>
+        <input
+          id="title"
+          type="text"
+          [(ngModel)]="thesis.title"
+          name="title"
+          required
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="text">Thesis Text:</label>
+        <textarea
+          id="text"
+          [(ngModel)]="thesis.text"
+          name="text"
+          required
+        ></textarea>
+      </div>
+  
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Submit Thesis</button>
+        <button type="button" class="btn-secondary" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>

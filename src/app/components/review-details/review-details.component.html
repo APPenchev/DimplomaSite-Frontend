@@ -1,0 +1,60 @@
+<div class="review-details-container">
+    <h1>Review Details</h1>
+    <div *ngIf="review; else noReview">
+      <div class="details-group">
+        <p><strong>Review Text:</strong> {{ review.text }}</p>
+        <p><strong>Upload Date:</strong> {{ review.uploadDate }}</p>
+        <p><strong>Review Result:</strong> {{ review.positive ? 'Positive' : 'Negative' }}</p>
+      </div>
+  
+      <!-- Resubmit Thesis Button -->
+      <div *ngIf="canResubmitReview()" class="resubmit-actions">
+        <button class="btn-primary" (click)="goToThesisResubmission()">Resubmit Thesis</button>
+      </div>
+  
+      <!-- Edit Review Section -->
+      <div *ngIf="canEditReview()">
+        <!-- Edit Button -->
+        <div *ngIf="!editing" class="edit-actions">
+          <button class="btn-primary" (click)="toggleEdit()">Edit Review</button>
+        </div>
+  
+        <!-- Edit Form -->
+        <div *ngIf="editing" class="edit-form">
+          <h2>Edit Review</h2>
+          <form (submit)="updateReview(); $event.preventDefault()">
+            <div class="form-group">
+              <label for="text">Review Text:</label>
+              <textarea
+                id="text"
+                [(ngModel)]="review.text"
+                name="text"
+                required
+              ></textarea>
+            </div>
+  
+            <div class="form-group">
+              <label for="positive">Review Result:</label>
+              <select id="positive" [(ngModel)]="review.positive" name="positive">
+                <option [value]="true">Positive</option>
+                <option [value]="false">Negative</option>
+              </select>
+            </div>
+  
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Save Changes</button>
+              <button type="button" class="btn-priamry" (click)="toggleEdit()">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <div class="actions">
+        <button (click)="backToPreviousPage()" class="btn-primary">Go Back</button>
+      </div>
+    </div>
+  
+    <ng-template #noReview>
+      <p class="no-review">No review found.</p>
+    </ng-template>
+  </div>

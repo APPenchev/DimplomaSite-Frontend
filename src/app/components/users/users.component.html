@@ -1,0 +1,45 @@
+<div class="users-container">
+    <h1>Manage Users</h1>
+  
+    <!-- User Creation Form -->
+    <form (submit)="createUser(); $event.preventDefault()">
+      <label for="name">Name:</label>
+      <input id="name" [(ngModel)]="newUser.name" name="name" required />
+  
+      <label for="username">Username:</label>
+      <input id="username" [(ngModel)]="newUser.username" name="username" required />
+  
+      <label for="password">Password:</label>
+      <input
+        id="password"
+        type="password"
+        [(ngModel)]="newUser.password"
+        name="password"
+        required
+      />
+  
+      <label for="role">Role:</label>
+      <select id="role" [(ngModel)]="newUser.role" name="role" required>
+        <option value="" disabled selected>Select role</option>
+        <option value="teacher">Teacher</option>
+        <option value="student">Student</option>
+      </select>
+  
+      <!-- Show position selection only for teachers -->
+      <div *ngIf="newUser.role === 'teacher'">
+        <label for="position">Position:</label>
+        <select id="position" [(ngModel)]="newUser.position" name="position" required>
+          <option value="" disabled selected>Select position</option>
+          <option value="ASSISTANT">Assistant</option>
+          <option value="CHIEF_ASSISTANT">Chief Assistant</option>
+          <option value="DOCENT">Docent</option>
+          <option value="PROFESSOR">Professor</option>
+        </select>
+      </div>
+  
+      <button type="submit">Create User</button>
+    </form>
+  
+    <!-- Error Message -->
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>

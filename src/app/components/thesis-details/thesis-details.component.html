@@ -1,0 +1,98 @@
+<div class="thesis-details-container">
+  <h1>Thesis Details</h1>
+  <div *ngIf="thesis; else noThesis">
+    <div class="details-group">
+      <p><strong>Title:</strong> {{ thesis.title }}</p>
+      <p><strong>Text:</strong> {{ thesis.text }}</p>
+      <p><strong>Upload Date:</strong> {{ thesis.uploadDate }}</p>
+    </div>
+
+
+     <!-- View Review Button -->
+     <div *ngIf="thesis.reviewId" class="review-actions">
+      <button class="btn-primary" (click)="goToReviewDetails()">View Review</button>
+    </div>
+
+    <div *ngIf="canSubmitReview()" class="review-actions">
+      <button class="btn-primary" (click)="goToReviewSubmission()">Submit Review</button>
+    </div>
+
+    <div *ngIf="canSubmitDefense()" class="submit-defense-actions">
+      <button class="btn-primary" (click)="goToSubmitDefense()">Submit Defense</button>
+    </div>
+
+    <!-- Edit Menu Button -->
+    <div *ngIf="canEditThesis()" class="edit-actions">
+      <button class="btn-primary" (click)="toggleEdit()">Edit Thesis</button>
+    </div>
+
+
+
+    <!-- Edit Form -->
+    <div *ngIf="editing" class="edit-form">
+      <h2>Edit Thesis</h2>
+      <form (submit)="updateThesis(); $event.preventDefault()">
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input
+            id="title"
+            type="text"
+            [(ngModel)]="thesis.title"
+            name="title"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="text">Text:</label>
+          <textarea
+            id="text"
+            [(ngModel)]="thesis.text"
+            name="text"
+            required
+          ></textarea>
+        </div>
+
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Save Changes</button>
+          <button type="button" class="btn-secondary" (click)="toggleEdit()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="defenses-container">
+      <h2>Defenses</h2>
+      <div *ngIf="defenses.length > 0; else noDefenses">
+        <div *ngFor="let defense of defenses" class="defense-item">
+          <div class="defense-info">
+            <p *ngIf="!defense.result">Defense scheduled on {{ defense.date | date: 'medium' }}</p>
+            <p *ngIf="defense.result">Defense ended on {{ defense.date | date: 'medium' }}</p>
+            <p *ngIf="defense.result">Grade: {{ defense.result.grade }}</p>
+          </div>
+          <div *ngIf="canManageDefense(defense)" class="defense-actions">
+            <button
+              *ngIf="!defense.result"
+              class="btn-primary"
+              (click)="addOrUpdateResult(defense)"
+            >
+              Add Result
+            </button>
+            <button class="btn-danger" (click)="deleteResult(defense)">Delete</button>
+          </div>
+        </div>
+      </div>
+      <ng-template #noDefenses>
+        <p>No defenses scheduled yet.</p>
+      </ng-template>
+    </div>
+
+    <div class="actions">
+      <button (click)="backToPreviousPage()" class="btn-primary">Go Back</button>
+    </div>
+  </div>
+
+  <ng-template #noThesis>
+    <p class="no-thesis">No thesis found.</p>
+  </ng-template>
+</div>

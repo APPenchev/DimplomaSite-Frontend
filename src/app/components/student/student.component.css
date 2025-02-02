@@ -1,0 +1,204 @@
+.center-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Adjust the height based on your layout */
+    text-align: center;
+  }
+  
+  
+  .center-message p {
+    font-size: 16px;
+    color: #555;
+  }
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .search-bar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-bar button:hover {
+    background-color: #0056b3;
+  }
+
+.student-management-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  /* Student List Container */
+  .student-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Student Item Styling */
+  .student-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative; /* Relative for any internal positioning */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  /* Name Styling */
+  .student-item p:first-child {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0; /* Remove default margin */
+    color: #333; /* Darker color */
+  }
+  
+  /* Faculty Number Styling */
+  .student-item p:last-child {
+    font-size: 14px;
+    color: #888; /* Gray-ish color */
+    margin: 5px 0 0 0; /* Slight spacing below name */
+  }
+  
+  /* Hover effect for student items */
+  .student-item:hover {
+    background-color: #f1f1f1;
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Selected Item Styling */
+  .student-item.selected {
+    background-color: #e3f2fd; /* Light blue */
+    border-color: #2196f3; /* Blue border for selected item */
+  }
+  
+  /* Dropdown Styling */
+  .dropdown {
+    margin-top: 10px; /* Space above the dropdown */
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: dropdown-animation 0.3s ease forwards;
+    padding: 15px;
+  }
+  
+  /* Labels and Inputs */
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  input {
+    margin-top: 5px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  /* Button Styles */
+  button {
+    padding: 8px 12px;
+    margin-top: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Animation for dropdown appearance */
+  @keyframes dropdown-animation {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .toggle-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .toggle-container label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .toggle-container input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .toggle-container input[type="radio"]:checked {
+    background-color: #007bff;
+  }
+  
+  .toggle-container input[type="radio"]:checked::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+  }

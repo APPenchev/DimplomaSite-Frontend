@@ -1,0 +1,71 @@
+<div class="assignment-create-container">
+    <h1>Create Assignment</h1>
+    <form (submit)="createAssignment(); $event.preventDefault()">
+      <div class="form-group">
+        <label for="topic">Topic:</label>
+        <input
+          id="topic"
+          type="text"
+          [(ngModel)]="assignment.topic"
+          name="topic"
+          required
+          placeholder="Enter assignment topic"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="goal">Goal:</label>
+        <textarea
+          id="goal"
+          [(ngModel)]="assignment.goal"
+          name="goal"
+          required
+          placeholder="Enter assignment goal"
+        ></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="tasks">Tasks:</label>
+        <textarea
+          id="tasks"
+          [(ngModel)]="assignment.tasks"
+          name="tasks"
+          required
+          placeholder="Enter assignment tasks"
+        ></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="technologies">Technologies:</label>
+        <textarea
+          id="technologies"
+          [(ngModel)]="assignment.technologies"
+          name="technologies"
+          required
+          placeholder="Enter technologies"
+        ></textarea>
+      </div>
+
+  
+      <!-- Supervisor ID Field (Only visible to Admins) -->
+      <div class="form-group" *ngIf="!authService.hasRole('teacher')">
+        <label for="supervisor">Supervisor ID:</label>
+        <input
+          id="supervisor"
+          type="number"
+          [(ngModel)]="assignment.supervisorId"
+          name="supervisorId"
+          required
+          placeholder="Enter supervisor ID"
+        />
+      </div>
+  
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Create Assignment</button>
+        <button type="button" class="btn-secondary" (click)="router.navigate(['/students'])">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+  

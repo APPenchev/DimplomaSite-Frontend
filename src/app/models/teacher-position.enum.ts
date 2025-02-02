@@ -1,0 +1,6 @@
+export enum TeacherPosition {
+  ASSISTANT = 'ASSISTANT',
+  CHIEF_ASSISTANT = 'CHIEF_ASSISTANT',
+  DOCENT = 'DOCENT',
+  PROFESSOR = 'PROFESSOR',
+}

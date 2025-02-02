@@ -1,0 +1,83 @@
+<div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search by Name"
+      [(ngModel)]="searchName"
+      (input)="searchTeachers()"
+    />
+    <input
+      type="text"
+      placeholder="Search by Position"
+      [(ngModel)]="searchPosition"
+      (input)="searchTeachers()"
+    />
+  </div>
+  
+  <h1>Teacher Management</h1>
+  
+  
+  
+  <div class="teacher-management-container">
+    <div class="teacher-list">
+      <!-- Loop through teachers -->
+      <div
+        *ngFor="let teacher of teachers"
+        (click)="toggleSelection(teacher)"
+        [class.selected]="selectedTeacher?.id === teacher.id"
+        class="teacher-item"
+      >
+        <p>{{ teacher.name }}</p>
+        <p>{{ teacher.position }}</p>
+  
+        <!-- Dropdown menu -->
+        <div *ngIf="selectedTeacher?.id === teacher.id" class="dropdown">
+          <h2>Edit Teacher</h2>
+          <form (submit)="updateTeacher(); $event.preventDefault()">
+            <label for="name">Name:</label>
+            <input
+              id="name"
+              [(ngModel)]="selectedTeacher.name"
+              name="name"
+              required
+            />
+  
+            <label for="position">Position:</label>
+                        <select
+                id="position"
+                [(ngModel)]="selectedTeacher.position"
+                name="position"
+                required
+                >
+                <option *ngFor="let position of positions" [value]="position">
+                    {{ position }}
+            </option>
+            </select>
+  
+            <div class="button-group">
+              <button type="submit">Save</button>
+              <button type="button" (click)="deleteTeacher()">Delete</button>
+            </div>
+          </form>
+
+  
+          <div *ngIf="graduateCount !== null" class="graduate-count">
+            <p>
+              <strong>Number of Graduates:</strong> {{ graduateCount }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isLoading" class="loading-spinner">
+      Loading...
+    </div>
+    
+    <div *ngIf="!isLoading && teachers.length === 0 && !errorMessage" class="center-message">
+      <p>No Teachers to display. Use the search bar to find teachers.</p>
+    </div>
+    
+    
+    <div *ngIf="errorMessage" class="center-message">
+      {{ errorMessage }}
+    </div>
+  </div>

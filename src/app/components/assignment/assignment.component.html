@@ -1,0 +1,66 @@
+<div class="search-bar">
+  <div class="toggle-container">
+    <label>
+      <input
+        type="radio"
+        name="searchType"
+        value="topic"
+        [(ngModel)]="searchType"
+        (change)="clearSearch()"
+        checked
+      />
+      Search by Topic
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="searchType"
+        value="teacher"
+        [(ngModel)]="searchType"
+        (change)="clearSearch()"
+      />
+      Search by Teacher
+    </label>
+  </div>
+  <input
+    type="text"
+    [placeholder]="searchType === 'topic' ? 'Search by Topic' : 'Search by Teacher'"
+    [(ngModel)]="searchInput"
+    (input)="searchAssignments()"
+  />
+</div>
+
+<h1>Assignment Management</h1>
+
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div class="student-management-container">
+  <div class="sorting-options">
+    <button (click)="sortAssignments('topic')">Sort by Topic</button>
+    <button (click)="sortAssignments('status')">Sort by Status</button>
+  </div>
+
+  <div
+    *ngFor="let assignment of assignments"
+    [class.selected]="selectedAssignment?.assignmentId === assignment.assignmentId"
+    [ngClass]="getStatusClass(assignment)"
+    class="student-item"
+  >
+    <p class="topic">{{ assignment.topic }}</p>
+    <span class="status-text">{{ getStatusMessage(assignment) }}</span>
+    <button (click)="redirectToAssignmentDetails(assignment.assignmentId)">
+      View Details
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    Loading...
+  </div>
+  
+  <div *ngIf="!isLoading && assignments.length === 0 && !errorMessage" class="center-message">
+    <p>No assignments to display. Use the search bar to find assignments.</p>
+  </div>
+</div>

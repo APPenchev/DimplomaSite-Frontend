@@ -1,0 +1,44 @@
+/* Navbar styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f8f9fa; /* Light gray background */
+    border-bottom: 1px solid #ddd; /* Subtle border for the navbar */
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Left-aligned link (NBU Manager) */
+  .nav-left {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff; /* Blue color */
+    text-decoration: none;
+  }
+  
+  .nav-left:hover {
+    text-decoration: underline;
+  }
+  
+  /* Right-aligned link (Log Out) */
+  .nav-right {
+    font-size: 16px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .nav-right:hover {
+    text-decoration: underline;
+  }
+  
+  /* General body styling for better appearance */
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  .nav-right span {
+    margin-right: 15px;
+    font-size: 16px;
+    color: #333; /* Dark text */
+  }

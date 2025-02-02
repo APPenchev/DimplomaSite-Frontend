@@ -1,0 +1,70 @@
+<div class="dashboard-container">
+  <h1>Dashboard</h1>
+  <p>Welcome to the dashboard!</p>
+
+  <!-- Admin-only options -->
+  <div *ngIf="hasRole('admin')">
+    <h2>Admin Options</h2>
+    <ul>
+      <li>
+        <a routerLink="/users">Manage Users</a>
+      </li>
+      <li>
+        <a routerLink="/assignments">View All Assignments</a>
+      </li>
+      <li>
+        <a routerLink="/students">View All Students</a>
+      </li>
+      <li>
+        <a routerLink="/teachers">View All Teachers</a>
+      </li>
+      <li>
+        <a routerLink="/admin">Admin Console</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Teacher-only options -->
+  <div *ngIf="hasRole('teacher')">
+    <h2>Teacher Options</h2>
+    <ul>
+      <li>
+        <a routerLink="/students">View Students</a>
+      </li>
+      <li>
+        <a routerLink="/assignments">View All Assignments</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Student-only options -->
+  <div *ngIf="isStudent">
+    <h2>Your Assignment</h2>
+    <div *ngIf="assignment; else noAssignment">
+      <p><strong>Topic:</strong> {{ assignment.topic }}</p>
+      <p><strong>Goal:</strong> {{ assignment.goal }}</p>
+      <p><strong>Approved:</strong> {{ assignment.approved ? 'Yes' : 'No' }}</p>
+      <button class="btn-primary" (click)="goToAssignmentDetails()">View Details</button>
+
+      <!-- Thesis Submission Button -->
+      <div *ngIf="assignment.approved && !thesis">
+        <button class="btn-primary" (click)="goToThesisSubmission()">Submit Thesis</button>
+      </div>
+    </div>
+    <ng-template #noAssignment>
+      <p>You have no assignment.</p>
+    </ng-template>
+
+    <h2>Your Thesis</h2>
+    <div *ngIf="thesis; else noThesis">
+      <p><strong>Title:</strong> {{ thesis.title }}</p>
+      <p><strong>Submitted on:</strong> {{ thesis.uploadDate }}</p>
+
+      <!-- View Thesis Details Button -->
+      <button class="btn-primary" (click)="goToThesisDetails()">View Thesis Details</button>
+    </div>
+    <ng-template #noThesis>
+      <p>You have no thesis.</p>
+    </ng-template>
+  </div>
+</div>

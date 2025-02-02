@@ -1,0 +1,35 @@
+<div class="admin-container">
+    <h1>Admin Dashboard</h1>
+  
+    <div class="query-section">
+      <h2>Average Students Defended</h2>
+      <div class="input-group">
+        <label for="startDate">Start Date:</label>
+        <input id="startDate" type="date" [(ngModel)]="startDate" />
+      </div>
+      <div class="input-group">
+        <label for="endDate">End Date:</label>
+        <input id="endDate" type="date" [(ngModel)]="endDate" />
+      </div>
+      <button (click)="fetchAverageDefended()">Get Average</button>
+  
+      <div *ngIf="averageDefended !== null" class="result">
+        <p><strong>Average Students Defended:</strong> {{ averageDefended }}</p>
+      </div>
+    </div>
+  
+    <div class="query-section">
+      <h2>Approved Reviews Count</h2>
+      <button (click)="fetchApprovedReviewsCount()">Get Approved Reviews Count</button>
+  
+      <div *ngIf="approvedReviewsCount !== null" class="result">
+        <p><strong>Approved Reviews Count:</strong> {{ approvedReviewsCount }}</p>
+      </div>
+    </div>
+  
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <button class="clear-button" (click)="clearResults()">Clear Results</button>
+  </div>

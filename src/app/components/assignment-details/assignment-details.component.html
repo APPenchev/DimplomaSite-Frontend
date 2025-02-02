@@ -1,0 +1,100 @@
+<div class="assignment-details-container">
+    <h1>Assignment Details</h1>
+    <div *ngIf="assignment; else noAssignment">
+      <div class="details-group">
+        <p><strong>Topic:</strong> {{ assignment.topic }}</p>
+        <p><strong>Goal:</strong> {{ assignment.goal }}</p>
+        <p><strong>Tasks:</strong> {{ assignment.tasks }}</p>
+        <p><strong>Technologies:</strong> {{ assignment.technologies }}</p>
+        <p><strong>Approved:</strong> {{ assignment.approved ? 'Yes' : 'No' }}</p>
+        <p><strong>Supervisor ID:</strong> {{ assignment.supervisorId }}</p>
+      </div>
+  
+
+    <!-- Link to Thesis if Available -->
+    <div *ngIf="assignment.thesisId" class="thesis-link">
+      <button class="btn-primary" (click)="navigateToThesis()">View Thesis</button>
+    </div>
+    
+        <!-- Show Delete Button for Admin -->
+    <div *ngIf="canEditAssignment()" class="delete-actions">
+        <button (click)="deleteAssignment()" class="btn-danger">Delete Assignment</button>
+    </div>
+
+      <div *ngIf="canApproveAssignment()" class="approve-actions">
+        <button class="btn-primary" (click)="approveAssignment()">Approve</button>
+      </div>
+
+      <!-- Edit Menu Button -->
+      <div *ngIf="canEditAssignment()" class="edit-actions">
+        <button class="btn-primary" (click)="toggleEdit()">Edit Assignment</button>
+      </div>
+  
+      <!-- Edit Form -->
+      <div *ngIf="editing" class="edit-form">
+        <h2>Edit Assignment</h2>
+        <form (submit)="updateAssignment(); $event.preventDefault()">
+          <div class="form-group">
+            <label for="topic">Topic:</label>
+            <input
+              id="topic"
+              type="text"
+              [(ngModel)]="assignment.topic"
+              name="topic"
+              required
+            />
+          </div>
+  
+          <div class="form-group">
+            <label for="goal">Goal:</label>
+            <textarea
+              id="goal"
+              [(ngModel)]="assignment.goal"
+              name="goal"
+              required
+            ></textarea>
+          </div>
+  
+          <div class="form-group">
+            <label for="tasks">Tasks:</label>
+            <textarea
+              id="tasks"
+              [(ngModel)]="assignment.tasks"
+              name="tasks"
+              required
+            ></textarea>
+          </div>
+  
+          <div class="form-group">
+            <label for="technologies">Technologies:</label>
+            <textarea
+              id="technologies"
+              [(ngModel)]="assignment.technologies"
+              name="technologies"
+              required
+            ></textarea>
+          </div>
+
+  
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Save Changes</button>
+            <button type="button" class="btn-secondary" (click)="toggleEdit()">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      
+  
+      <div class="actions">
+        <button (click)="backToPreviousPage()" class="btn-primary">Go Back</button>
+      </div>
+    </div>
+  
+  
+    <ng-template #noAssignment>
+      <p class="no-assignment">No assignment found.</p>
+    </ng-template>
+
+
+  </div>
+  

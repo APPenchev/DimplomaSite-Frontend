@@ -1,0 +1,49 @@
+<div class="submit-defense-container">
+    <h1>Submit Defense</h1>
+  
+    <div class="form-group">
+      <label for="defense-date">Defense Date:</label>
+      <input
+        type="date"
+        id="defense-date"
+        [(ngModel)]="defenseDate"
+        name="defenseDate"
+        required
+      />
+    </div>
+  
+    <!-- Supervisor Selection (Admin only) -->
+    <div *ngIf="!authService.hasRole('teacher')" class="form-group">
+      <label>Choose Supervisor:</label>
+      <div class="teacher-list">
+        <div
+          *ngFor="let teacher of teachers"
+          class="teacher-item"
+          [class.selected]="selectedSupervisor?.id === teacher.id"
+          (click)="selectSupervisor(teacher)"
+        >
+          {{ teacher.name }}
+        </div>
+      </div>
+    </div>
+  
+    <!-- Committee Member Selection -->
+    <div class="form-group">
+      <label>Committee Members:</label>
+      <div class="teacher-list">
+        <div
+          *ngFor="let teacher of teachers"
+          class="teacher-item"
+          [class.selected]="selectedTeachers.includes(teacher)"
+          (click)="toggleTeacherSelection(teacher)"
+        >
+          {{ teacher.name }}
+        </div>
+      </div>
+    </div>
+  
+    <div class="form-actions">
+      <button class="btn-primary" (click)="submitDefense()">Submit Defense</button>
+      <button class="btn-secondary" (click)="router.navigate(['/thesis', thesisId])">Cancel</button>
+    </div>
+  </div>
