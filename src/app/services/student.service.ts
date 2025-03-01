@@ -10,12 +10,10 @@ export class StudentService {
 
   constructor(private http: HttpClient) {}
 
-  // Get all students
   getAllStudents(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}`);
   }
 
-  // Get student by ID
   getStudentById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
@@ -24,7 +22,6 @@ export class StudentService {
     return this.http.get<any[]>(`${this.apiUrl}/passed-between?startDate=${startDate}&endDate=${endDate}`);
   }
 
-  // Update student by ID
   updateStudent(id: number, studentPayload: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, studentPayload);
   }

@@ -1,5 +1,4 @@
 <div class="search-bar">
-  <!-- Radio Buttons for Toggle -->
   <div class="toggle-container">
     <label>
       <input
@@ -34,7 +33,6 @@
     </label>
   </div>
 
-  <!-- Conditional Inputs Based on Selected Search Type -->
   <div *ngIf="searchType === 'name' || searchType === 'facultyNumber'">
     <input
       type="text"
@@ -78,7 +76,6 @@
 
 <div class="student-management-container">
   <div class="student-list">
-    <!-- Loop through students -->
     <div
       *ngFor="let student of students"
       (click)="toggleSelection(student)"
@@ -88,11 +85,9 @@
       <p>{{ student.name }}</p>
       <p>{{ student.facultyNumber }}</p>
 
-      <!-- Dropdown menu directly below the selected item -->
       <div *ngIf="selectedStudent?.id === student.id" class="dropdown">
         <h2>Student Actions</h2>
 
-        <!-- Show editing and deleting only for admins -->
         <div *ngIf="authService.hasRole('admin')">
           <form (submit)="updateStudent(); $event.preventDefault()">
             <label for="name">Name:</label>
@@ -118,9 +113,7 @@
           </form>
         </div>
 
-        <!-- Assignment-related buttons visible to both admin and teacher -->
         <div class="assignment-buttons">
-          <!-- Show "Create Assignment" button if diplomaAssignmentId is null -->
           <button
             *ngIf="selectedStudent.diplomaAssignmentId === null"
             (click)="redirectToAssignmentCreation(selectedStudent.id)"
@@ -128,7 +121,6 @@
             Create Assignment
           </button>
 
-          <!-- Show "View Assignment" button if diplomaAssignmentId is not null -->
           <button
             *ngIf="selectedStudent.diplomaAssignmentId !== null"
             (click)="redirectToAssignmentDetails(selectedStudent.diplomaAssignmentId)"

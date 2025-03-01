@@ -7,8 +7,6 @@
       <p><strong>Upload Date:</strong> {{ thesis.uploadDate }}</p>
     </div>
 
-
-     <!-- View Review Button -->
      <div *ngIf="thesis.reviewId" class="review-actions">
       <button class="btn-primary" (click)="goToReviewDetails()">View Review</button>
     </div>
@@ -21,14 +19,10 @@
       <button class="btn-primary" (click)="goToSubmitDefense()">Submit Defense</button>
     </div>
 
-    <!-- Edit Menu Button -->
     <div *ngIf="canEditThesis()" class="edit-actions">
       <button class="btn-primary" (click)="toggleEdit()">Edit Thesis</button>
     </div>
 
-
-
-    <!-- Edit Form -->
     <div *ngIf="editing" class="edit-form">
       <h2>Edit Thesis</h2>
       <form (submit)="updateThesis(); $event.preventDefault()">

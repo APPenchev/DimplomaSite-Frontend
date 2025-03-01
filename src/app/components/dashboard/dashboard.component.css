@@ -1,75 +1,226 @@
-.dashboard-container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* dashboard.component.scss */
+/* Base Styles */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #333333;
 }
 
-h1 {
+* {
+  box-sizing: border-box;
+}
+
+/* App Container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  height: 44px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.app-title {
+  color: #0078d7;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.user-info {
+  font-size: 14px;
+}
+
+.logout-link {
+  color: #0078d7;
+  text-decoration: none;
+  margin-left: 8px;
+}
+
+/* Dashboard Layout */
+.dashboard-layout {
+  display: flex;
+  flex: 1;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 120px;
+  background-color: #333333;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.portal-title {
+  padding: 20px 10px;
+  font-size: 20px;
   text-align: center;
-  margin-bottom: 20px;
 }
 
-h2 {
-  margin-top: 20px;
-}
-
-ul {
+.nav-menu ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
-ul li {
-  margin: 10px 0;
-  font-size: 16px;
+.nav-menu ul li {
+  padding: 8px 10px;
 }
 
-a {
-  color: #007bff;
+.nav-menu ul li a {
+  color: #ffffff;
   text-decoration: none;
+  display: block;
 }
 
-a:hover {
+.nav-menu ul li a:hover {
   text-decoration: underline;
 }
 
-button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #cff3fa;
+}
+
+.nbu-title {
   font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: normal;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Dashboard Panels */
+.dashboard-panels {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.panel {
+  background-color: #ffffff;
+  border: 1px solid #cacaca;
+  border-radius: 5px;
+  flex: 1;
+  min-width: 300px;
+}
+
+.panel-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.panel-content {
+  padding: 20px;
+  min-height: 200px;
+  border-radius: 20px;
+
+}
+
+/* Info Rows */
+.info-row {
+  display: flex;
+  margin-bottom: 15px;
+  color: #626262;
+}
+
+.info-row-title {
+  display: flex;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.info-label {
+  width: 100px;
+  font-weight: 500;
+}
+
+.info-value {
+  flex: 1;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.status-badge.approved {
+  background-color: #bafad0;
+  color: #207245;
+}
+
+.status-badge.pending {
+  background-color: #ffe6c3;
+  color: #b86200;
+}
+
+/* Action Buttons */
+.action-buttons {
+  margin-top: 20px;
+}
+
+.action-button {
+  padding: 6px 12px;
+  border-radius: 2px;
+  font-size: 14px;
   cursor: pointer;
-  margin-top: 10px;
+  border: none;
+  margin-right: 10px;
 }
 
-button.btn-primary {
-  background-color: #007bff;
+.action-button.primary {
+  background-color: #0078d7;
   color: white;
-  transition: background-color 0.3s ease;
 }
 
-button.btn-primary:hover {
-  background-color: #0056b3;
+.action-button.primary:hover {
+  background-color: #006cc1;
 }
 
-button.btn-danger {
-  background-color: #dc3545;
-  color: white;
-  transition: background-color 0.3s ease;
+/* Empty States */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #777;
 }
 
-button.btn-danger:hover {
-  background-color: #c82333;
-}
-
-button.btn-secondary {
-  background-color: #6c757d;
-  color: white;
-  transition: background-color 0.3s ease;
-}
-
-button.btn-secondary:hover {
-  background-color: #5a6268;
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+  
+  .panel {
+    min-width: 100%;
+  }
 }

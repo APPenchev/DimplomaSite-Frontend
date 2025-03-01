@@ -24,8 +24,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     if (!this.authService.isAuthenticated()) {
       console.error('Token is invalid or expired. Redirecting to login.');
-      this.authService.clearToken(); // Clear the expired token
-      this.router.navigate(['/login']); // Redirect to login
+      this.authService.clearToken(); 
+      this.router.navigate(['/login']); 
 
     } else {
       this.roles = this.authService.getUserRoles();
@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit {
     }
 
   }
-  // Fetch the student's assignment
   fetchStudentAssignment(): void {
     this.assignmentService.getAssignmentByStudent().subscribe(
       (data) => {
@@ -52,7 +51,6 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  // Fetch the student's thesis
   fetchStudentThesis(): void {
     this.thesisService.getThesisByStudent().subscribe(
       (data) => {

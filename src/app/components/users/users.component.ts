@@ -13,7 +13,7 @@ export class UsersComponent implements OnInit {
     password: '',
     name: '',
     role: '',
-    position: '', // Only applicable for teachers
+    position: '',
   };
 
   errorMessage: string | null = null;
@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
       const teacherPayload = {
         teacher: {
           name: this.newUser.name,
-          position: this.newUser.position.toUpperCase(), // Ensure enum is sent in uppercase
+          position: this.newUser.position.toUpperCase(), 
         },
         credentials: {
           username: this.newUser.username,

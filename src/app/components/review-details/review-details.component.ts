@@ -38,7 +38,6 @@ export class ReviewDetailsComponent implements OnInit {
     }
   }
   
-  // Fetch review details using the ID from route parameters
   fetchReviewDetails(): Promise<void> {
     const reviewId = this.route.snapshot.paramMap.get('id');
     if (!reviewId) {
@@ -49,12 +48,11 @@ export class ReviewDetailsComponent implements OnInit {
       this.reviewService.getReviewById(+reviewId).subscribe(
         (data) => {
           this.review = data;
-          console.log(data);
-          resolve(); // Resolve when the review is fetched
+          resolve(); 
         },
         (error) => {
           console.error('Error fetching review details:', error);
-          reject(error); // Reject if an error occurs
+          reject(error); 
         }
       );
     });
@@ -75,7 +73,6 @@ export class ReviewDetailsComponent implements OnInit {
     } 
   }
 
-  // Check if the current user can edit the review
   canEditReview(): boolean {
     if (!this.review) return false;
     const currentUserKeycloakId = this.authService.getUserId();
@@ -98,18 +95,16 @@ export class ReviewDetailsComponent implements OnInit {
     );
   }
 
-  // Toggle the edit form visibility
   toggleEdit(): void {
     this.editing = !this.editing;
   }
 
-  // Update the review
   updateReview(): void {
     this.reviewService.updateReview(this.review.id, this.review).subscribe(
       (updatedReview) => {
         alert('Review updated successfully!');
-        this.review = updatedReview; // Update the review details
-        this.editing = false; // Close the edit form
+        this.review = updatedReview; 
+        this.editing = false; 
       },
       (error) => {
         console.error('Error updating review:', error);
@@ -118,12 +113,10 @@ export class ReviewDetailsComponent implements OnInit {
     );
   }
 
-  // Navigate back to the previous page
   backToPreviousPage(): void {
-    this.location.back(); // Use Location service to navigate back
+    this.location.back(); 
   }
 
-  // Navigate to the thesis resubmission page
   goToThesisResubmission(): void {
     
     this.router.navigate(['/theses/submit'], {

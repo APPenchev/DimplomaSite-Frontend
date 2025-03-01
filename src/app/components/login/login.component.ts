@@ -29,12 +29,12 @@ export class LoginComponent {
     this.authService.clearToken()
     this.authService.login(this.credentials).subscribe(
       (token) => {
-        this.authService.storeToken(token); // Store the token
-        this.error = null; // Clear any previous errors
-        this.router.navigate(['/dashboard']); // Redirect to the index page
+        this.authService.storeToken(token); 
+        this.error = null;
+        this.router.navigate(['/dashboard']);
       },
       (err) => {
-        this.error = 'Invalid username or password'; // Handle login error
+        this.error = 'Invalid username or password'; 
         console.error('Login error:', err);
       }
     );

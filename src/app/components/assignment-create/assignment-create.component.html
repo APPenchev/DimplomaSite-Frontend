@@ -46,8 +46,6 @@
         ></textarea>
       </div>
 
-  
-      <!-- Supervisor ID Field (Only visible to Admins) -->
       <div class="form-group" *ngIf="!authService.hasRole('teacher')">
         <label for="supervisor">Supervisor ID:</label>
         <input

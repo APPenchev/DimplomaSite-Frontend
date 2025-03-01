@@ -1,7 +1,6 @@
 <div class="users-container">
     <h1>Manage Users</h1>
   
-    <!-- User Creation Form -->
     <form (submit)="createUser(); $event.preventDefault()">
       <label for="name">Name:</label>
       <input id="name" [(ngModel)]="newUser.name" name="name" required />
@@ -25,7 +24,6 @@
         <option value="student">Student</option>
       </select>
   
-      <!-- Show position selection only for teachers -->
       <div *ngIf="newUser.role === 'teacher'">
         <label for="position">Position:</label>
         <select id="position" [(ngModel)]="newUser.position" name="position" required>
@@ -40,6 +38,5 @@
       <button type="submit">Create User</button>
     </form>
   
-    <!-- Error Message -->
     <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
   </div>

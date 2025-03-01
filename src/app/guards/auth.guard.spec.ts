@@ -30,14 +30,14 @@ describe('AuthGuard', () => {
   });
 
   it('should allow access if authenticated', () => {
-    authService.getToken.and.returnValue('fake-token'); // Mock token existence
-    expect(authGuard.canActivate()).toBe(true); // Guard should allow access
-    expect(router.navigate).not.toHaveBeenCalled(); // Ensure no navigation occurs
+    authService.getToken.and.returnValue('fake-token'); 
+    expect(authGuard.canActivate()).toBe(true);
+    expect(router.navigate).not.toHaveBeenCalled(); 
   });
 
   it('should redirect to login if not authenticated', () => {
-    authService.getToken.and.returnValue(null); // Mock no token
-    expect(authGuard.canActivate()).toBe(false); // Guard should block access
-    expect(router.navigate).toHaveBeenCalledWith(['/login']); // Ensure redirection
+    authService.getToken.and.returnValue(null); 
+    expect(authGuard.canActivate()).toBe(false); 
+    expect(router.navigate).toHaveBeenCalledWith(['/login']); 
   });
 });

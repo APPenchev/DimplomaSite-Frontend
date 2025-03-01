@@ -11,12 +11,12 @@ import { UserService } from '../../services/user.service';
   standalone: false
 })
 export class TeacherComponent implements OnInit {
-  teachers: any[] = []; // List of teachers
-  selectedTeacher: any = null; // Currently selected teacher
+  teachers: any[] = []; 
+  selectedTeacher: any = null; 
   errorMessage: string | null = null;
   graduateCount: number | null = null; 
-  searchName: string = ''; // Search by name
-  searchPosition: string = ''; // Search by position
+  searchName: string = ''; 
+  searchPosition: string = ''; 
   isLoading = false;
   positions = Object.values(TeacherPosition);
   passingGrade: number = 3.0;
@@ -27,8 +27,6 @@ export class TeacherComponent implements OnInit {
     this.fetchTeachers();
   }
 
-
-  // Fetch all teachers
   fetchTeachers(): void {
     this.isLoading = true;
     this.teacherService.getAllTeachers().subscribe(
@@ -59,7 +57,6 @@ export class TeacherComponent implements OnInit {
       );
   }
 
-  // Search teachers by name or position
   searchTeachers(): void {
     if (this.searchName.trim()) {
       this.teacherService.getTeachersByName(this.searchName).subscribe(
@@ -92,14 +89,12 @@ export class TeacherComponent implements OnInit {
     }
   }
 
-  // Clear the search and fetch all teachers
   clearSearch(): void {
     this.searchName = '';
     this.searchPosition = '';
     this.fetchTeachers();
   }
 
-  // Update the selected teacher
   updateTeacher(): void {
     if (this.selectedTeacher) {
       this.teacherService.updateTeacher(this.selectedTeacher.id, this.selectedTeacher).subscribe(
@@ -108,7 +103,7 @@ export class TeacherComponent implements OnInit {
           if (index !== -1) {
             this.teachers[index] = updatedTeacher;
           }
-          this.selectedTeacher = null; // Deselect after saving
+          this.selectedTeacher = null;
         },
         (error) => {
           console.error('Error updating teacher:', error);

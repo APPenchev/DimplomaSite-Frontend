@@ -34,18 +34,18 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = this.getToken();
-    return !!token && !this.isTokenExpired(token); // Check if the token exists and is not expired
+    return !!token && !this.isTokenExpired(token); 
   }
 
   isTokenExpired(token: string): boolean {
     try {
       const decoded: any = jwtDecode(token);
-      const expirationTime = decoded.exp * 1000; // Convert UNIX timestamp to milliseconds
-      const currentTime = Date.now(); // Get the current time in milliseconds
-      return expirationTime < currentTime; // Return true if the token is expired
+      const expirationTime = decoded.exp * 1000;
+      const currentTime = Date.now(); 
+      return expirationTime < currentTime; 
     } catch (error) {
       console.error('Error decoding token:', error);
-      return true; // Assume the token is expired if decoding fails
+      return true; 
     }
   }
 
@@ -71,7 +71,7 @@ export class AuthService {
     return this.http.get<any>(url).pipe(
       catchError((error) => {
         console.error('Error fetching teacher by Keycloak ID:', error);
-        return of(null); // Return a null observable in case of an error
+        return of(null);
       })
     );
   }
@@ -84,10 +84,10 @@ export class AuthService {
   
     try {
       const decoded: any = jwtDecode(token);
-      return decoded.preferred_username || null; // Extract `preferred_username` from the token
+      return decoded.preferred_username || null; 
     } catch (error) {
       console.error('Error decoding token:', error);
-      return null; // Return null if decoding fails
+      return null;
     }
   }
   
@@ -99,7 +99,7 @@ export class AuthService {
   
     try {
       const decoded: any = jwtDecode(token);
-      return decoded.sub || null; // `sub` is often used as the unique identifier in JWTs
+      return decoded.sub || null; 
     } catch (error) {
       console.error('Error decoding token:', error);
       return null;

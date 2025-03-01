@@ -1,70 +1,91 @@
-<div class="dashboard-container">
-  <h1>Dashboard</h1>
-  <p>Welcome to the dashboard!</p>
+<!-- dashboard.component.html -->
+<div class="app-container">
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <div class="portal-title">Portal</div>
+      
+      <nav class="nav-menu">
+        <div *ngIf="hasRole('admin')">
+          <ul>
+            <li><a routerLink="/users">Manage Users</a></li>
+            <li><a routerLink="/assignments">View All Assignments</a></li>
+            <li><a routerLink="/students">View All Students</a></li>
+            <li><a routerLink="/teachers">View All Teachers</a></li>
+            <li><a routerLink="/admin">Admin Console</a></li>
+          </ul>
+        </div>
+        
+        <div *ngIf="hasRole('teacher')">
+          <ul>
+            <li><a routerLink="/students">View Students</a></li>
+            <li><a routerLink="/assignments">View All Assignments</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
 
-  <!-- Admin-only options -->
-  <div *ngIf="hasRole('admin')">
-    <h2>Admin Options</h2>
-    <ul>
-      <li>
-        <a routerLink="/users">Manage Users</a>
-      </li>
-      <li>
-        <a routerLink="/assignments">View All Assignments</a>
-      </li>
-      <li>
-        <a routerLink="/students">View All Students</a>
-      </li>
-      <li>
-        <a routerLink="/teachers">View All Teachers</a>
-      </li>
-      <li>
-        <a routerLink="/admin">Admin Console</a>
-      </li>
-    </ul>
-  </div>
+    <main class="main-content">
+      <h1 class="page-title">Dashboard</h1>
+      
+      <div *ngIf="isStudent" class="dashboard-panels">
+        <div class="panel assignment-panel">
+          <h2 class="panel-title">Current Assignment</h2>
+          
+          <div *ngIf="assignment; else noAssignment" class="panel-content">
+            <div class="info-row-title">
+              <div class="info-value">{{ assignment.topic }}</div>
+            </div>
+            
+            <div class="info-row">
+              <div class="info-value">{{ assignment.goal }}</div>
+            </div>
+            
+            <div class="info-row">
+              <div class="info-value">
+                <span class="status-badge approved" *ngIf="assignment.approved">Approved</span>
+                <span class="status-badge pending" *ngIf="!assignment.approved">Pending</span>
+              </div>
+            </div>
+            
+            <div class="action-buttons">
+              <button class="action-button primary" (click)="goToAssignmentDetails()">View Details</button>
+              <button *ngIf="assignment.approved && !thesis" class="action-button primary" (click)="goToThesisSubmission()">Submit Thesis</button>
+            </div>
+          </div>
+          
+          <ng-template #noAssignment>
+            <div class="panel-content empty-state">
+              <p>You have no assignment.</p>
+            </div>
+          </ng-template>
+        </div>
 
-  <!-- Teacher-only options -->
-  <div *ngIf="hasRole('teacher')">
-    <h2>Teacher Options</h2>
-    <ul>
-      <li>
-        <a routerLink="/students">View Students</a>
-      </li>
-      <li>
-        <a routerLink="/assignments">View All Assignments</a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Student-only options -->
-  <div *ngIf="isStudent">
-    <h2>Your Assignment</h2>
-    <div *ngIf="assignment; else noAssignment">
-      <p><strong>Topic:</strong> {{ assignment.topic }}</p>
-      <p><strong>Goal:</strong> {{ assignment.goal }}</p>
-      <p><strong>Approved:</strong> {{ assignment.approved ? 'Yes' : 'No' }}</p>
-      <button class="btn-primary" (click)="goToAssignmentDetails()">View Details</button>
-
-      <!-- Thesis Submission Button -->
-      <div *ngIf="assignment.approved && !thesis">
-        <button class="btn-primary" (click)="goToThesisSubmission()">Submit Thesis</button>
+        <div class="panel thesis-panel">
+          <h2 class="panel-title">Thesis Status</h2>
+          
+          <div *ngIf="thesis; else noThesis" class="panel-content">
+            <div class="info-row-title">
+              <div class="info-value">{{ thesis.title }}</div>
+            </div>
+            
+            <div class="info-row">
+              <div class="info-label">Submitted on:</div>
+              <div class="info-value">{{ thesis.uploadDate }}</div>
+            </div>
+            
+            <div class="action-buttons">
+              <button class="action-button primary" (click)="goToThesisDetails()">View Thesis Details</button>
+            </div>
+          </div>
+          
+          <ng-template #noThesis>
+            <div class="panel-content empty-state">
+              <div class="thesis-status-icon"></div>
+              <p>No thesis submitted yet</p>
+            </div>
+          </ng-template>
+        </div>
       </div>
-    </div>
-    <ng-template #noAssignment>
-      <p>You have no assignment.</p>
-    </ng-template>
-
-    <h2>Your Thesis</h2>
-    <div *ngIf="thesis; else noThesis">
-      <p><strong>Title:</strong> {{ thesis.title }}</p>
-      <p><strong>Submitted on:</strong> {{ thesis.uploadDate }}</p>
-
-      <!-- View Thesis Details Button -->
-      <button class="btn-primary" (click)="goToThesisDetails()">View Thesis Details</button>
-    </div>
-    <ng-template #noThesis>
-      <p>You have no thesis.</p>
-    </ng-template>
+    </main>
   </div>
 </div>

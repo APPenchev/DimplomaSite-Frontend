@@ -26,12 +26,10 @@ export class ReviewSubmissionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Get the assignment ID from query params
     this.route.queryParams.subscribe((params) => {
       this.review.thesisId = +params['thesisId'];
     });
 
-    // Get the teacher ID from the AuthService
     this.authService
       .getTeacherByKeycloakId(this.authService.getUserId() || '')
       .subscribe((teacher) => {
@@ -39,7 +37,6 @@ export class ReviewSubmissionComponent implements OnInit {
       });
   }
 
-  // Submit the review
   submitReview(): void {
     this.reviewService.createReview(this.review).subscribe(
       () => {
@@ -53,7 +50,6 @@ export class ReviewSubmissionComponent implements OnInit {
     );
   }
 
-  // Cancel and go back
   cancel(): void {
     this.router.navigate(['/assignments', this.review.assignmentId]);
   }

@@ -7,19 +7,15 @@
         <p><strong>Review Result:</strong> {{ review.positive ? 'Positive' : 'Negative' }}</p>
       </div>
   
-      <!-- Resubmit Thesis Button -->
       <div *ngIf="canResubmitReview()" class="resubmit-actions">
         <button class="btn-primary" (click)="goToThesisResubmission()">Resubmit Thesis</button>
       </div>
   
-      <!-- Edit Review Section -->
       <div *ngIf="canEditReview()">
-        <!-- Edit Button -->
         <div *ngIf="!editing" class="edit-actions">
           <button class="btn-primary" (click)="toggleEdit()">Edit Review</button>
         </div>
   
-        <!-- Edit Form -->
         <div *ngIf="editing" class="edit-form">
           <h2>Edit Review</h2>
           <form (submit)="updateReview(); $event.preventDefault()">

@@ -10,17 +10,14 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  // Create a new student
   createStudent(studentPayload: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/create-student`, studentPayload);
   }
 
-  // Create a new teacher
   createTeacher(teacherPayload: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/create-teacher`, teacherPayload);
   }
 
-  // Delete a user by their Keycloak ID
   deleteUser(keycloakId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${keycloakId}`);
   }

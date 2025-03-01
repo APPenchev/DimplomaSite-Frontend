@@ -12,17 +12,17 @@ import { Location } from '@angular/common';
   standalone: false,
 })
 export class AssignmentDetailsComponent implements OnInit {
-  assignment: any = null; // Holds the assignment details
-  defenses: any[] = []; // Holds defenses for the thesis
-  errorMessage: string | null = null; // Error message for display
-  editing: boolean = false; // Toggle edit form
+  assignment: any = null; 
+  defenses: any[] = []; 
+  errorMessage: string | null = null; 
+  editing: boolean = false; 
   teacher: any = null;
 
   constructor(
     public route: ActivatedRoute,
     public router: Router,
     private assignmentService: AssignmentService,
-    private defenseService: DefenseService, // Add DefenseService
+    private defenseService: DefenseService, 
     public authService: AuthService,
     private location: Location
   ) {}
@@ -32,11 +32,11 @@ export class AssignmentDetailsComponent implements OnInit {
     this.authService
       .getTeacherByKeycloakId(this.authService.getUserId() || '')
       .subscribe((teacher) => {
-        this.teacher = teacher; // Store the TeacherDto
+        this.teacher = teacher; 
       });
   }
 
-  // Fetch assignment details using the ID from route parameters
+  
   fetchAssignmentDetails(): void {
     const assignmentId = this.route.snapshot.paramMap.get('id');
     if (assignmentId) {
@@ -58,7 +58,6 @@ export class AssignmentDetailsComponent implements OnInit {
   }
 
 
-  // Delete the assignment
   deleteAssignment(): void {
     if (confirm('Are you sure you want to delete this assignment?')) {
       this.assignmentService.deleteAssignment(this.assignment.id).subscribe(
@@ -78,7 +77,7 @@ export class AssignmentDetailsComponent implements OnInit {
     this.assignmentService.approveAssignment(this.assignment.id).subscribe(
       () => {
         alert('Assignment approved successfully!');
-        this.assignment.approved = true; // Update the UI to reflect approval
+        this.assignment.approved = true; 
       },
       (error) => {
         console.error('Error approving assignment:', error);
@@ -90,10 +89,8 @@ export class AssignmentDetailsComponent implements OnInit {
   canEditAssignment(): boolean {
     if (!this.assignment) return false;
 
-    // Admins can always edit
     if (this.authService.hasRole('admin')) return true;
 
-    // Supervising teacher can edit (compare teacher.id with assignment.supervisorId)
     return (
       this.authService.hasRole('teacher') &&
       this.teacher?.id === this.assignment.supervisorId
@@ -108,10 +105,8 @@ export class AssignmentDetailsComponent implements OnInit {
     if (!this.assignment) return false;
     if (this.assignment.approved) return false;
 
-    // Admins can always approve
     if (this.authService.hasRole('admin')) return true;
 
-    // Other teachers can approve if they are not the supervisor
     return (
       this.authService.hasRole('teacher') &&
       this.teacher?.id !== this.assignment.supervisorId
@@ -130,8 +125,8 @@ export class AssignmentDetailsComponent implements OnInit {
       .subscribe(
         (updatedAssignment) => {
           alert('Assignment updated successfully!');
-          this.assignment = updatedAssignment; // Update local assignment data
-          this.editing = false; // Close the edit form
+          this.assignment = updatedAssignment;
+          this.editing = false;
         },
         (error) => {
           console.error('Error updating assignment:', error);
@@ -141,6 +136,6 @@ export class AssignmentDetailsComponent implements OnInit {
   }
 
   backToPreviousPage(): void {
-    this.location.back(); // Use Location service to navigate back
+    this.location.back();
   }
 }

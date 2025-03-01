@@ -19,7 +19,6 @@
   
   <div class="teacher-management-container">
     <div class="teacher-list">
-      <!-- Loop through teachers -->
       <div
         *ngFor="let teacher of teachers"
         (click)="toggleSelection(teacher)"
@@ -29,7 +28,6 @@
         <p>{{ teacher.name }}</p>
         <p>{{ teacher.position }}</p>
   
-        <!-- Dropdown menu -->
         <div *ngIf="selectedTeacher?.id === teacher.id" class="dropdown">
           <h2>Edit Teacher</h2>
           <form (submit)="updateTeacher(); $event.preventDefault()">

@@ -25,14 +25,12 @@ export class ThesisSubmissionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Get the assignment ID from query params
     this.route.queryParams.subscribe((params) => {
       this.thesis.assignmentId = +params['assignmentId'];
       console.log('Assignment ID:', this.thesis.assignmentId);
     });
   }
 
-  // Submit the thesis
   submitThesis(): void {
     this.thesisService.createThesis(this.thesis).subscribe(
       () => {

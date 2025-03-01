@@ -9,16 +9,15 @@ import { DefenseService } from '../../services/defense.service';
   standalone: false
 })
 export class AdminComponent {
-  startDate: string = ''; // Start date for defense query
-  endDate: string = ''; // End date for defense query
-  averageDefended: number | null = null; // Result for average defended students
-  approvedReviewsCount: number | null = null; // Result for approved reviews count
-  errorMessage: string | null = null; // For handling errors
+  startDate: string = '';
+  endDate: string = ''; 
+  averageDefended: number | null = null; 
+  approvedReviewsCount: number | null = null; 
+  errorMessage: string | null = null; 
   isLoading: boolean = false;
 
   constructor(private reviewService: ReviewService, private defenseService: DefenseService) {}
 
-  // Fetch average number of students defended between dates
   fetchAverageDefended(): void {
     if (!this.startDate || !this.endDate) {
       this.errorMessage = 'Please select both start and end dates.';
@@ -40,7 +39,6 @@ export class AdminComponent {
     );
   }
 
-  // Fetch count of approved reviews
   fetchApprovedReviewsCount(): void {
     this.isLoading = true;
     this.reviewService.getApprovedReviewsCount().subscribe(
@@ -57,7 +55,6 @@ export class AdminComponent {
     );
   }
 
-  // Clear results and error messages
   clearResults(): void {
     this.startDate = '';
     this.endDate = '';

@@ -100,7 +100,6 @@ export class ThesisDetailsComponent implements OnInit {
     });
   }
 
-  // Fetch all defenses for the thesis
   fetchDefenses(thesisId: number): Promise<void> {
     return new Promise((resolve, reject) => {
       this.defenseService.getDefensesByThesisId(thesisId).subscribe(
@@ -108,25 +107,24 @@ export class ThesisDetailsComponent implements OnInit {
           this.defenses = data;
           console.log(data);
   
-          // Fetch results for defenses with a resultId
           const fetchResultPromises = this.defenses.map((defense) => {
             if (defense.resultId) {
               return this.resultService.getDefenseResultById(Number(defense.resultId)).toPromise().then(
                 (result) => {
-                  defense.result = result; // Attach the result to the defense
+                  defense.result = result;
                 },
                 (error) => {
                   console.warn(`Failed to fetch result for defense ${defense.id}`);
-                  defense.result = null; // Ensure result is null if not found
+                  defense.result = null; 
                 }
               );
             } else {
-              defense.result = null; // No resultId, set result to null
+              defense.result = null; 
               return Promise.resolve();
             }
           });
   
-          await Promise.all(fetchResultPromises); // Wait for all result fetches
+          await Promise.all(fetchResultPromises); 
           resolve();
         },
         (error) => {
@@ -137,16 +135,12 @@ export class ThesisDetailsComponent implements OnInit {
     });
   }
 
-
-  
-
-  // Delete the thesis
   deleteThesis(): void {
     if (confirm('Are you sure you want to delete this thesis?')) {
       this.thesisService.deleteThesis(this.thesis.id).subscribe(
         () => {
           alert('Thesis deleted successfully!');
-          this.router.navigate(['/dashboard']); // Redirect back to the dashboard
+          this.router.navigate(['/dashboard']); 
         },
         (error) => {
           console.error('Error deleting thesis:', error);
@@ -207,14 +201,12 @@ export class ThesisDetailsComponent implements OnInit {
     if (this.thesis.reviewId) return false;
     const currentUserKeycloakId = this.authService.getUserId();
 
-    // Ensure the user is a teacher and not the supervisor
     return (
       this.authService.hasRole('teacher') &&
       this.thesis.teacherKeycloakId !== currentUserKeycloakId
     );
   }
 
-  // Toggle the edit form visibility
   toggleEdit(): void {
     this.editing = !this.editing;
   }
@@ -222,7 +214,7 @@ export class ThesisDetailsComponent implements OnInit {
   fetchResult(defense: any): void {
     this.resultService.getDefenseResultById(defense.id).subscribe(
       (result) => {
-        defense.result = result; // Attach the result to the defense
+        defense.result = result;
       },
       (error) => {
         console.warn(`No result found for defense ${defense.id}.`);
@@ -230,13 +222,13 @@ export class ThesisDetailsComponent implements OnInit {
     );
   }
 
-  // Update thesis
+
   updateThesis(): void {
     this.thesisService.updateThesis(this.thesis.id, this.thesis).subscribe(
       (updatedThesis) => {
         alert('Thesis updated successfully!');
-        this.thesis = updatedThesis; // Update local thesis data
-        this.editing = false; // Close the edit form
+        this.thesis = updatedThesis;
+        this.editing = false; 
       },
       (error) => {
         console.error('Error updating thesis:', error);
@@ -253,17 +245,15 @@ export class ThesisDetailsComponent implements OnInit {
     );
   }
 
-  // Add or update result
   addOrUpdateResult(defense: any): void {
     const grade = prompt('Enter the grade for the defense:', defense.grade || '');
     if (grade) {
       const data = { grade: parseFloat(grade), defenseId: defense.id };
       if (defense.grade) {
-        // Update existing result
         this.resultService.updateDefenseResult(defense.id, { grade: parseFloat(grade) }).subscribe(
           () => {
             alert('Result updated successfully!');
-            this.fetchDefenses(this.thesis.id); // Refresh the defenses
+            this.fetchDefenses(this.thesis.id);
           },
           (error) => {
             console.error('Error updating result:', error);
@@ -271,11 +261,10 @@ export class ThesisDetailsComponent implements OnInit {
           }
         );
       } else {
-        // Create new result
         this.resultService.createDefenseResult(data).subscribe(
           () => {
             alert('Result added successfully!');
-            this.fetchDefenses(this.thesis.id); // Refresh the defenses
+            this.fetchDefenses(this.thesis.id);
           },
           (error) => {
             console.error('Error adding result:', error);
@@ -286,13 +275,13 @@ export class ThesisDetailsComponent implements OnInit {
     }
   }
 
-  // Delete result
+
   deleteResult(defense: any): void {
     if (confirm('Are you sure you want to delete the result?')) {
       this.defenseService.deleteDefense(defense.id).subscribe(
         () => {
           alert('Result deleted successfully!');
-          this.fetchDefenses(this.thesis.id); // Refresh the defenses
+          this.fetchDefenses(this.thesis.id); 
         },
         (error) => {
           console.error('Error deleting result:', error);
@@ -303,8 +292,7 @@ export class ThesisDetailsComponent implements OnInit {
   }
 
 
-  // Navigate back to the previous page
   backToPreviousPage(): void {
-    this.location.back(); // Use Location service to navigate back
+    this.location.back(); 
   }
 }

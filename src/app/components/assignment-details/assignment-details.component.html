@@ -11,12 +11,10 @@
       </div>
   
 
-    <!-- Link to Thesis if Available -->
     <div *ngIf="assignment.thesisId" class="thesis-link">
       <button class="btn-primary" (click)="navigateToThesis()">View Thesis</button>
     </div>
     
-        <!-- Show Delete Button for Admin -->
     <div *ngIf="canEditAssignment()" class="delete-actions">
         <button (click)="deleteAssignment()" class="btn-danger">Delete Assignment</button>
     </div>
@@ -25,12 +23,10 @@
         <button class="btn-primary" (click)="approveAssignment()">Approve</button>
       </div>
 
-      <!-- Edit Menu Button -->
       <div *ngIf="canEditAssignment()" class="edit-actions">
         <button class="btn-primary" (click)="toggleEdit()">Edit Assignment</button>
       </div>
   
-      <!-- Edit Form -->
       <div *ngIf="editing" class="edit-form">
         <h2>Edit Assignment</h2>
         <form (submit)="updateAssignment(); $event.preventDefault()">
@@ -82,7 +78,6 @@
           </div>
         </form>
       </div>
-
       
   
       <div class="actions">

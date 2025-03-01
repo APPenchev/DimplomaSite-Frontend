@@ -16,7 +16,7 @@ export class AssignmentCreateComponent implements OnInit {
     goal: '',
     tasks: '',
     technologies: '',
-    supervisorId: 0, // Default value for supervisorId
+    supervisorId: 0, 
   };
 
   constructor(
@@ -35,7 +35,6 @@ export class AssignmentCreateComponent implements OnInit {
   }
 
   createAssignment(): void {
-    // Remove supervisorId if the user is a teacher
     const payload = { ...this.assignment, studentId: this.studentId };
     
     this.assignmentService.createAssignment(payload).subscribe(

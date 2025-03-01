@@ -12,7 +12,6 @@
       />
     </div>
   
-    <!-- Supervisor Selection (Admin only) -->
     <div *ngIf="!authService.hasRole('teacher')" class="form-group">
       <label>Choose Supervisor:</label>
       <div class="teacher-list">
@@ -26,8 +25,7 @@
         </div>
       </div>
     </div>
-  
-    <!-- Committee Member Selection -->
+
     <div class="form-group">
       <label>Committee Members:</label>
       <div class="teacher-list">
